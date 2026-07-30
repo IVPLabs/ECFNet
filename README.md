@@ -25,15 +25,15 @@ Infrared small target detection (IRSTD) in high-resolution images is crucial for
 <p align="center">
   <img src="coarse_to_fine_framework.png" width="auto" alt="accessibility text">
 </p>
-Overall architecture of the proposed UniCD.
+Overall pipeline of the proposed ECFNet.
 
 ## Dataset Download Link
 
-Our custom-built dataset (Car) can be downloaded via the following link:
+Our custom-built Car dataset comprises 18,230 infrared images, each with a spatial resolution of $640 \times 512$ pixels. Car dataset can be downloaded via the following link:
 
 - Download Dataset Here -[Baidu Netdisk](<https://pan.baidu.com/s/1XUSNjVa8vikR6TQOtMwkTQ?pwd=xdut>),  [Google Drive(TODO)](<>).
   
-If you find the IRBFD dataset useful for your research, please consider citing our paper  [[`BibTex`](#citation)]. Your acknowledgement is greatly appreciated!
+If you find the Car dataset useful for your research, please consider citing our paper  [[`BibTex`](#citation)]. Your acknowledgement is greatly appreciated!
 
 ## Citation
 If you find our work useful for your research, please consider citing our paper. Thank you!
