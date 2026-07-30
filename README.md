@@ -9,7 +9,7 @@ Authors: Houzhang Fang<sup>1</sup>, Ruixuan Huang<sup>1</sup>, Qiuhuan Chen<sup>
 **European Conference on Computer Vision (ECCV) 2026**
 
 <h4>
-  <a href="https://arxiv.org/pdf/2606.21956">[Paper PDF|arXiv]</a>
+  <a href="https://arxiv.org/abs/2606.21956">[Paper PDF|arXiv]</a>
   <a href="#citation">[BibTex]</a>
 </h4>
 
