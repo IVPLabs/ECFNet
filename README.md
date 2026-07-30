@@ -23,7 +23,7 @@ Infrared small target detection (IRSTD) in high-resolution images is crucial for
 
 ## Network Architecture
 <p align="center">
-  <img src="figs/coarse_to_fine_framework.png" width="auto" alt="accessibility text">
+  <img src="coarse_to_fine_framework.png" width="auto" alt="accessibility text">
 </p>
 Overall architecture of the proposed UniCD.
 
