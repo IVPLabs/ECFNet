@@ -34,7 +34,7 @@ Our custom-built Car dataset comprises 18,230 infrared images, each with a spati
 If you find the Car dataset useful for your research, please consider citing our paper  [[`BibTex`](#citation)]. Your acknowledgement is greatly appreciated!
 
 ## Citation
-If you find our work useful for your research, please consider citing our paper. Thank you!
+If you find our work and dataset useful for your research, please consider citing our paper. Thank you!
 ```bibtex
 @inproceedings{2026ECCV_ECFNet,
     title     = {Denoising-Enhanced Coarse-to-Fine Infrared Small Target Detection with Attention Prior-Guided Knowledge Distillation},
