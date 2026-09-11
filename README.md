@@ -33,6 +33,101 @@ Our custom-built Car dataset comprises 18,230 infrared images, each with a spati
   
 If you find the Car dataset useful for your research, please consider citing our paper  [[`BibTex`](#citation)]. Your acknowledgement is greatly appreciated!
 
+## Data Preparation
+
+After downloading and extracting a dataset, arrange the images, binary masks,
+and object-level labels under one dataset root as follows:
+
+```text
+data/
+├── images/
+│   ├── train/
+│   ├── val/
+│   └── test/
+├── masks/
+│   ├── train/
+│   ├── val/
+│   └── test/
+└── labels/
+    ├── train/
+    ├── val/
+    └── test/
+```
+
+For example, one test sample should be stored as:
+
+```text
+data/images/test/000001.jpg
+data/masks/test/000001.png
+data/labels/test/000001.txt
+```
+
+The image, mask, and label belonging to the same sample must have the same file
+stem. Masks should be single-channel PNG images in which target pixels are
+non-zero. Each line of an object-level label file uses normalized YOLO format:
+
+```text
+class_id x_center y_center width height
+```
+
+An image without a target may use an empty label file. The dataset root is
+provided to all scripts through `--dataset_path`; therefore, no absolute path
+needs to be written into the source code. The split directory names can be
+changed with `--train_split`, `--val_split`, or `--test_split` where supported.
+
+## Testing
+
+Download or place the trained checkpoints under a local directory such as
+`./weights`. The value of `--rbcn_block` must match the block used to train the
+RBCN checkpoint. Use `c2fp` for the paper model or `c3k2` for the optional
+variant.
+
+### Coarse-Stage RBCN Testing
+
+Run the region-proposal evaluation with:
+
+```bash
+python test_rbcn.py \
+  --dataset_path ./data \
+  --weight_path ./weights/RBCN_weight.pt \
+  --test_split test \
+  --rbcn_block c2fp \
+  --output_dir ./runs/rbcn_test
+```
+
+The script reports TP, FP, FN, coarse-region precision (CRP), and coarse-region
+recall (CRR). The following optional switches save additional visual results:
+
+```bash
+python test_rbcn.py \
+  --dataset_path ./data \
+  --weight_path ./weights/RBCN_weight.pt \
+  --rbcn_block c2fp \
+  --save_whole_img_with_scores \
+  --save_whole_img_after_select
+```
+
+### Full ECFNet Testing
+
+Evaluate object-level detection using both the coarse-stage RBCN checkpoint and
+the trained ECFNet checkpoint:
+
+```bash
+python test_ECFNet.py \
+  --dataset_path ./data \
+  --rbcn_weight_path ./weights/RBCN_weight.pt \
+  --weight_path ./weights/ECFNet_weight.pt \
+  --cfg ./cfg/head.yaml \
+  --test_split test \
+  --rbcn_block c2fp \
+  --dev cuda:0
+```
+
+The script reports validation loss, precision, recall, and AP50. Add
+`--save_labels` to save predictions in YOLO text format under `./save_labels`.
+For a quick pipeline check, set `--max_batches 1` in full-model testing or
+`--max_images 1` in coarse-stage testing.
+
 ## Citation
 If you find our work and dataset useful for your research, please consider citing our paper. Thank you!
 ```bibtex
