@@ -1,0 +1,38 @@
+# Runtime dependencies for train_rbcn.py, test_rbcn.py,
+# train_ECFNet.py, and test_ECFNet.py.
+#
+# Versions are based on the hrx-DPR conda environment (Python 3.10.15,
+# PyTorch 2.1.2+CUDA 12.1). Install a CUDA-compatible PyTorch build for
+# your machine before using GPU training.
+
+torch==2.1.2
+torchvision==0.16.2
+
+numpy==1.24.3
+scipy==1.14.1
+scikit-learn==1.5.2
+opencv-python==4.10.0.84
+Pillow==11.0.0
+
+openpyxl==3.1.5
+tqdm==4.67.1
+PyYAML==6.0.2
+requests==2.32.3
+setuptools==75.1.0
+
+# Metrics, plots, and test-time THOP profiling.
+thop==0.1.1.post2209072238
+matplotlib==3.10.0
+pandas==2.2.3
+seaborn==0.13.2
+
+# APKD implementation.
+einops==0.8.0
+timm==1.0.12
+
+# Online YOLO11 teacher used by APKD knowledge distillation.
+# This matches the referenced local ultralytics-main checkout.
+ultralytics==8.3.4
+
+# Optional acceleration: natten. APKD automatically uses its PyTorch
+# fallback when natten is unavailable, so it is intentionally not pinned.

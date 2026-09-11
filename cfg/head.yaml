@@ -1,0 +1,25 @@
+# parameters
+nc: 1  # number of classes
+
+# depth_multiple: 1.33  # model depth multiple
+# width_multiple: 1.25  # layer channel multiple
+# # anchors  1920
+# anchors:
+#   - [8,10,  10,22, 20,18]  # P3/8
+#   - [23,40,  49,28,  41,59]  # P4/16
+#   - [93,48,  81,93,  170,140]  # P5/32
+
+depth_multiple: 1.00  # model depth multiple
+width_multiple: 1.00  # layer channel multiple
+# anchors  1536
+anchors:
+#  - [6,8,    10,22,  19,15]  # P3/8
+  - [0, 1, 2 ,3 ,4, 5]  # P3/8
+  - [10,13,  16,30,   33,23]  # P4/16
+
+
+# YOLOv5 head
+head:
+  [
+    [[ 14, 10], 1, Detect, [nc, anchors]],  # Detect(P3, P4, P5)
+  ]
