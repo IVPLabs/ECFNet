@@ -77,11 +77,6 @@ changed with `--train_split`, `--val_split`, or `--test_split` where supported.
 
 ## Testing
 
-Download or place the trained checkpoints under a local directory such as
-`./weights`. The value of `--rbcn_block` must match the block used to train the
-RBCN checkpoint. Use `c2fp` for the paper model or `c3k2` for the optional
-variant.
-
 ### Coarse-Stage RBCN Testing
 
 Run the region-proposal evaluation with:
