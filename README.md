@@ -75,6 +75,72 @@ provided to all scripts through `--dataset_path`; therefore, no absolute path
 needs to be written into the source code. The split directory names can be
 changed with `--train_split`, `--val_split`, or `--test_split` where supported.
 
+## Training
+
+ECFNet is trained in two stages. Train the coarse-stage RBCN first, and then
+use its checkpoint to train the fine-stage detector.
+
+### Stage 1: Train the Coarse-Stage RBCN
+
+The paper configuration uses Adam with a learning rate of `0.0001`, zero weight
+decay, 100 epochs, and a batch size of 12:
+
+```bash
+python train_rbcn.py \
+  --dataset_path ./data \
+  --train_split train \
+  --val_split val \
+  --rbcn_block c2fp \
+  --epoch 100 \
+  --lr 0.0001 \
+  --weight_decay 0 \
+  --batchsz 12 \
+  --dev cuda:0 \
+  --output_dir ./runs/rbcn/weights \
+  --training_excel_path ./runs/rbcn/training_metrics.xlsx
+```
+
+The best-IoU and best-TPR checkpoints are written to the directory specified by
+`--output_dir`. Training metrics are saved to the Excel file specified by
+`--training_excel_path`. To initialize RBCN from an existing checkpoint, add
+`--weight_path ./weights/rbcn_checkpoint.pt`.
+
+### Stage 2: Train the Fine-Stage ECFNet
+
+The paper configuration uses SGD with a learning rate of `0.01`, zero weight
+decay, 300 epochs, and a batch size of 16. Pass the trained coarse-stage
+checkpoint through `--rbcn_weight_path`:
+
+```bash
+python train_ECFNet.py \
+  --dataset_path ./data \
+  --train_split train \
+  --val_split val \
+  --rbcn_weight_path ./runs/rbcn/weights/model_epoch_100_bestP.pt \
+  --teacher_weight_path ./weights/teacher.pt \
+  --rbcn_block c2fp \
+  --cfg_path ./cfg/head.yaml \
+  --epoch 300 \
+  --lr 0.01 \
+  --weight_decay 0 \
+  --batchsz 16 \
+  --dev cuda:0 \
+  --output_dir ./runs/ecfnet/weights \
+  --training_excel_path ./runs/ecfnet/training_metrics.xlsx
+```
+
+Supplying `--teacher_weight_path` enables attention prior-guided knowledge
+distillation. If it is omitted or the file does not exist, training continues
+without APKD. By default, teacher inference reads the images under
+`<dataset_path>/images/<train_split>`. Use
+`--teacher_dataset_path /path/to/teacher/images` only when the teacher should
+read its training images from another directory.
+
+Fine-stage checkpoints are saved every 20 epochs under `--output_dir`. To resume
+from an ECFNet checkpoint, add `--weight_path ./weights/ecfnet_checkpoint.pt`.
+The RBCN block selected with `--rbcn_block` must match the block used by the
+coarse-stage checkpoint.
+
 ## Testing
 
 ### Coarse-Stage RBCN Testing
