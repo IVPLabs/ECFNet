@@ -82,9 +82,6 @@ use its checkpoint to train the fine-stage detector.
 
 ### Stage 1: Train the Coarse-Stage RBCN
 
-The paper configuration uses Adam with a learning rate of `0.0001`, zero weight
-decay, 100 epochs, and a batch size of 12:
-
 ```bash
 python train_rbcn.py \
   --dataset_path ./data \
@@ -106,10 +103,6 @@ The best-IoU and best-TPR checkpoints are written to the directory specified by
 `--weight_path ./weights/rbcn_checkpoint.pt`.
 
 ### Stage 2: Train the Fine-Stage ECFNet
-
-The paper configuration uses SGD with a learning rate of `0.01`, zero weight
-decay, 300 epochs, and a batch size of 16. Pass the trained coarse-stage
-checkpoint through `--rbcn_weight_path`:
 
 ```bash
 python train_ECFNet.py \
