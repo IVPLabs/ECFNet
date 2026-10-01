@@ -190,7 +190,7 @@ If you find our work and dataset useful for your research, please consider citin
     author    = {Houzhang Fang and Ruixuan Huang and Qiuhuan Chen and Xiaolin Wang and Yi Chang and Luxin Yan},
     booktitle = {European Conference on Computer Vision (ECCV)},
     year      = {2026},
-    pages     = { },
+    pages     = {150--168},
 }
 ```
 
